@@ -11,7 +11,7 @@ public class Food extends Actor
 {
     private int size = 30;
     private int crumbs = 100;
-    private GreenfootImage image = new GreenfootImage(size, size);
+    private GreenfootImage image = new GreenfootImage(30, 40);
     
     /**
      * Act - do whatever the Food wants to do. This method is called whenever
