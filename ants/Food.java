@@ -9,9 +9,17 @@ import java.util.Random;
  */
 public class Food extends Actor
 {
-    private int size = 30;
-    private int crumbs = 100;
-    private GreenfootImage image = new GreenfootImage(30, 40);
+    private GreenfootImage image;
+    private int crumbs = 50;
+    
+    private final int SIZE = 60;
+    
+    public Food()
+    {
+        image = new GreenfootImage(SIZE, SIZE);
+        updateImage();
+        removeCrumb();
+    }
     
     /**
      * Act - do whatever the Food wants to do. This method is called whenever
@@ -19,37 +27,40 @@ public class Food extends Actor
      */
     public void act() 
     {
-        removeCrumb();
+        
     }    
     
     private void updateImage()
     {
         Random random = new Random();
         
-        int stDev = size / 6;
-        int x = (int) (stDev * random.nextGaussian( ) + 3 * stDev);
-        int y = (int) (stDev * random.nextGaussian( ) + 3 * stDev);
-            
-        // keep crumbs in image
-        if(x < 0) 
-        {    
-            x = 0;
-        }
-        if(x >= size) 
+        for (int i = 0; i < crumbs; i ++)
         {
-            x = size - 1;
-        }
-        if(y < 0) 
-        {    
-            y = 0;
-        }
-        if(y >= size) 
-        {    
-            y = size - 1;
-        }
+            int stDev = SIZE / 6;
+            int x = (int) (stDev * random.nextGaussian( ) + 3 * stDev);
+            int y = (int) (stDev * random.nextGaussian( ) + 3 * stDev);
+            
+            // keep crumbs in image
+            if(x < 0) 
+            {    
+                x = 0;
+            }
+            if(x >= SIZE) 
+            {
+                x = SIZE - 1;
+            }
+            if(y < 0) 
+            {    
+                y = 0;
+            }
+            if(y >= SIZE) 
+            {    
+                y = SIZE - 1;
+            }
         
-        Color color = new Color(100, 100, 200);  // pick the color you want by replacing r, g, b with values.
-        image.setColorAt(x, y, color);
+            Color color = new Color(200, 100, 50);  // pick the color you want by replacing r, g, b with values.
+            image.setColorAt(x, y, color);
+        }
         
         setImage(image);
     }
@@ -57,14 +68,16 @@ public class Food extends Actor
     public void removeCrumb()
     {
         crumbs --;
-        GreenfootImage image = getImage();
         image.clear();
-        updateImage();
         
-        Food food = (Food) getOneIntersectingObject(Food.class);
-        if (food != null) 
+        //Food food = (Food) getOneIntersectingObject(Food.class);
+        if (crumbs == 0)
         {
-            food.removeCrumb();
+            getWorld().removeObject(this);
+        }
+        else
+        {
+            updateImage();
         }
     }
     

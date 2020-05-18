@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, and Greenfoot)
+import java.util.List;
 
 /**
  * The world where ants live.
@@ -10,6 +11,14 @@ public class AntWorld extends World
 {
     public static final int SIZE = 640;
 
+    public void act()
+    {
+        if (getObjects(Food.class).size() == 0)
+        {
+            Greenfoot.stop();
+        }
+    }
+    
     /**
      * Create a new world. It will be initialised with a few ant hills
      * and food sources
@@ -38,5 +47,9 @@ public class AntWorld extends World
         addObject(food2,64,123);
         Food food3 = new Food();
         addObject(food3,370,544);
+        food3.setLocation(242,537);
+        food3.setLocation(114,531);
+        Food food4 = new Food();
+        addObject(food4,584,604);
     }
 }
